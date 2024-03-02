@@ -9,6 +9,9 @@ joinchannel = os.getenv("JOINCHANNEL")
 chemrole = os.getenv("APCHEMROLE")
 intents = discord.Intents.all()
 client = commands.Bot(command_prefix="br-",intents=intents)
+from flask import Flask
+from threading import Thread
+app = Flask("BrogreServer")
 
 class Role(discord.ui.View):
     def __init__(self):
@@ -53,4 +56,16 @@ async def on_member_remove(member):
         f"```js\nlet oldUser = brogreMemberList.indexOf({member});\nbrogreMemberList.splice(oldUser,1)\n```bye {member.mention}"
     )
     
-client.run(token)
+@app.route('/')
+def home():
+    return "VividFusion's Server"
+
+def run():
+    client.run(token)
+def startServer():  
+
+    t = Thread(target=run)
+    t.start()
+startServer()
+#app.run(host="0.0.0.0",port=6221) keep this line on local but not pythonanywhere
+
