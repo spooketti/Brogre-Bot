@@ -67,5 +67,5 @@ def startServer():
     t = Thread(target=run)
     t.start()
 startServer()
-#app.run(host="0.0.0.0",port=6221) keep this line on local but not pythonanywhere
+#app.run(host="0.0.0.0",port=6221) #keep this line on local but not pythonanywhere
 
