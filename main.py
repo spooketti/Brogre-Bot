@@ -3,24 +3,19 @@ load_dotenv()
 import os
 import discord
 from discord.ext import commands
+from role import Role
 token = os.getenv("TOKEN")
 botrole = os.getenv("BOTROLE")
 joinchannel = os.getenv("JOINCHANNEL")
-chemrole = os.getenv("APCHEMROLE")
 intents = discord.Intents.all()
 client = commands.Bot(command_prefix="br-",intents=intents)
 from flask import Flask
 from threading import Thread
 app = Flask("BrogreServer")
 
-class Role(discord.ui.View):
-    def __init__(self):
-        super().__init__(timeout=None)
-    @discord.ui.button(label="AP Chem",custom_id="APCHEM", style=discord.ButtonStyle.green)
-    async def apchem(self,interaction:discord.Interaction,button):
-        await interaction.response.send_message("brother", ephemeral=True)
-        await interaction.user.add_roles(interaction.user.guild.get_role(int(chemrole)))
 
+        
+        
 @client.event
 async def on_ready():
   print("im up")
@@ -45,7 +40,7 @@ async def on_member_join(member):
       await member.add_roles(botrole)
       return
     await channel.send(
-        f"```js\nbrogreMemberList.push({member})\n```{member.mention} do /class_select once advik gives me perms"
+        f"```js\nbrogreMemberList.push({member})\n```{member.mention} do /class_select to give yourself roles"
     )
 
 
@@ -58,7 +53,7 @@ async def on_member_remove(member):
     
 @app.route('/')
 def home():
-    return "VividFusion's Server"
+    return "BrogreBot Server"
 
 def run():
     client.run(token)
